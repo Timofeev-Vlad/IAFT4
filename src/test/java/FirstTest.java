@@ -8,21 +8,20 @@ import static org.testng.Assert.assertTrue;
 public class FirstTest extends BaseTest {
 
     @Test
-    public void zipcode3DigitsCheck () {
+    public void search3DigitsCheck () {
 
         browser.get("https://sharelane.com/cgi-bin/register.py");
-        browser.findElement(By.xpath("//input[@name='zip_code']")).sendKeys("345");
-        browser.findElement(By.xpath("//input[@value='Continue']")).click();
-        assertEquals (browser.findElement(By.cssSelector(".error_message")).getText(), "Oops, error on page. ZIP code should have 5 digits");
+        browser.findElement(By.xpath("//input[@name='keyword']")).sendKeys("345");
+        browser.findElement(By.xpath("//input[@value='Search']")).click();
+        assertEquals (browser.findElement(By.cssSelector(".confirmation_message")).getText(), "Please, note that current MySQL settings don't allow searches for words containing less than 4 chars");
     }
 
     @Test
-    public void zipcode5DigitsCheck () {
+    public void search5DigitsCheck () {
 
         browser.get("https://sharelane.com/cgi-bin/register.py");
-        browser.findElement(By.xpath("//input[@name='zip_code']")).sendKeys("12345");
-        browser.findElement(By.xpath("//input[@value='Continue']")).click();
-        boolean regBtnIsDisplayed = browser.findElement(By.xpath("//*[@value='Register']")).isDisplayed();
-        assertTrue(regBtnIsDisplayed);
+        browser.findElement(By.xpath("//input[@name='keyword']")).sendKeys("12345");
+        browser.findElement(By.xpath("//input[@value='Search']")).click();
+        assertEquals (browser.findElement(By.cssSelector(".confirmation_message")).getText(), "Nothing is found :(");
     }
 }
