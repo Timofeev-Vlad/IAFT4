@@ -1,33 +1,28 @@
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+import parent.BaseTest;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
-public class FirstTest {
-    public String trialCode (int number) {
-        if (number % 3 == 0 && number % 5 == 0) {
-            return "ТИМ";
-        } else if (number % 5 == 0) {
-            return "M";
-        } else if (number % 3 == 0) {
-            return "Т";
-        } else return "FAIL";
+public class FirstTest extends BaseTest {
+
+    @Test
+    public void zipcode3DigitsCheck () {
+
+        browser.get("https://sharelane.com/cgi-bin/register.py");
+        browser.findElement(By.xpath("//input[@name='zip_code']")).sendKeys("345");
+        browser.findElement(By.xpath("//input[@value='Continue']")).click();
+        assertEquals (browser.findElement(By.cssSelector(".error_message")).getText(), "Oops, error on page. ZIP code should have 5 digits");
     }
 
     @Test
-    public void timTest () {
-        String actualResult = trialCode(9);
-        assertEquals(actualResult, "Т");
-    }
+    public void zipcode5DigitsCheck () {
 
-    @Test
-    public void tim5Test () {
-        String actualResult = trialCode(25);
-        assertEquals(actualResult, "M");
-    }
-
-    @Test
-    public void tim58Test () {
-        String actualResult = trialCode(15);
-        assertEquals(actualResult, "ТИМ");
+        browser.get("https://sharelane.com/cgi-bin/register.py");
+        browser.findElement(By.xpath("//input[@name='zip_code']")).sendKeys("12345");
+        browser.findElement(By.xpath("//input[@value='Continue']")).click();
+        boolean regBtnIsDisplayed = browser.findElement(By.xpath("//*[@value='Register']")).isDisplayed();
+        assertTrue(regBtnIsDisplayed);
     }
 }
