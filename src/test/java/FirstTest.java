@@ -9,7 +9,6 @@ public class FirstTest extends BaseTest {
 
     @Test
     public void search3DigitsCheck () {
-
         browser.get("https://sharelane.com/cgi-bin/register.py");
         browser.findElement(By.xpath("//input[@name='keyword']")).sendKeys("345");
         browser.findElement(By.xpath("//input[@value='Search']")).click();
@@ -18,7 +17,6 @@ public class FirstTest extends BaseTest {
 
     @Test
     public void search5DigitsCheck () {
-
         browser.get("https://sharelane.com/cgi-bin/register.py");
         browser.findElement(By.xpath("//input[@name='keyword']")).sendKeys("12345");
         browser.findElement(By.xpath("//input[@value='Search']")).click();
